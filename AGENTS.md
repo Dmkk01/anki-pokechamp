@@ -1,3 +1,4 @@
+
 ## AI usage tracking (required)
 
 - Audit AI coverage from source model constants, API-key identifiers and provider endpoints through all consumers; do not rely only on generation method names. Include image generation/edit/removal, embeddings (single/batch), reranking, extraction and speech, including direct HTTP calls. Distinguish declared-only keys, model selectors, uploads/polling/downloads and non-AI services from inference. Never open `.env` files or expose key values during the audit.
@@ -9,3 +10,7 @@
 - Preserve provider/model choices, prompts, SDK retries, streaming bytes, validation and business results. Capture bounded, scrubbed input/output, actual provider/model, usage, duration, status and available cost provenance. Do not send binary/base64 media or credentials. Reporting failures must not fail the underlying work; short-lived processes must await reporting or flush before exit.
 - Record each actual attempt once. Completed batch items need stable IDs so repeat collection/import does not double-count; batch submission/polling is not a completed generation. Preserve observed usage/cost even when later validation fails. Missing usage/cost stays unknown; do not invent zero, and do not treat Ollama Cloud as free local inference.
 - Use existing offline checks and mocked providers for validation. This tracking requirement never authorizes paid calls, generation, database access/migrations, uploads or app deployment; those permissions remain task-scoped.
+
+## Subagent delegation
+
+Prefer subagents for independent research, finding data for local uploads, and preparing large text or JSON payloads; validate their combined results and follow existing permission rules. If unsure whether a task would benefit from subagents, ask the user at the beginning of the task.
